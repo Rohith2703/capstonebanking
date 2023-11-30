@@ -20,6 +20,6 @@ resource "aws_instance" "test-server" {
   }
 }
 
-output "public_ip" {
+output "test_server_ip" {
   value = aws_instance.test-server.public_ip
 }
