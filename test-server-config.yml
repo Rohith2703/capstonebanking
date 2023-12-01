@@ -1,8 +1,6 @@
 ---
 - hosts: test-server
   become: true
-  become_user: root
-  remote_user: ubuntu
   tasks:
   - name: update apt
     command: sudo apt-get update
