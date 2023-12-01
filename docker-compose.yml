@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  node-exporter:
+    image: prom/node-exporter
+    ports:
+      - '9100:9100'
+    networks:
+      - monitoring
+
+  your-app:
+    image: rohith2703/bankingcapstone:1.0
+    ports:
+      - '8080:8080'
+    networks:
+      - monitoring
+
+networks:
+  monitoring:
