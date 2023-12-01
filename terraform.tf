@@ -31,7 +31,7 @@ resource "aws_instance" "prod-server" {
 
 resource "aws_security_group" "allow_ssh_and_8080" {
   name        = "allow-ssh-and-8080"
-  description = "Allow incoming SSH (port 22) and HTTP (port 8080) traffic"
+  description = "Allow incoming SSH (port 22), HTTP (port 80), and HTTP (port 8080) traffic, and allow all outgoing traffic"
 
   ingress {
     from_port   = 22
@@ -46,10 +46,18 @@ resource "aws_security_group" "allow_ssh_and_8080" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-   ingress {
+
+  ingress {
     from_port   = 80
     to_port     = 80
     protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"  # "-1" means all protocols
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
