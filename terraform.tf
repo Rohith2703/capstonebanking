@@ -29,15 +29,14 @@ resource "aws_instance" "prod-server" {
   }
 }
 
-data "aws_security_group" "acceptall" {
-  name = "acceptall"
+data "aws_security_group" "existing_sg" {
+  id = "sg-0cd0b11c0a086bb1c"  # Replace with your actual security group ID
 }
 
 resource "aws_security_group" "reuse_existing_sg" {
-  name        = data.aws_security_group.acceptall.id
+  name        = data.aws_security_group.existing_sg.name
   description = "Reuse an existing security group allowing all traffic"
 }
-
 
 output "test_server_ip" {
   value = aws_instance.test-server.public_ip
