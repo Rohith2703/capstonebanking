@@ -27,17 +27,31 @@ resource "aws_instance" "prod-server" {
   }
 }
 
-resource "aws_security_group" "allow_http" {
-  name        = "allow-http"
-  description = "Allow incoming traffic on all ports"
+resource "aws_security_group" "allow_ssh_and_8080" {
+  name        = "allow-ssh-and-8080"
+  description = "Allow incoming SSH (port 22) and HTTP (port 8080) traffic"
 
   ingress {
-    from_port   = 0
-    to_port     = 0
-    protocol    = "-1"
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 8080
+    to_port     = 8080
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+   ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
 output "test_server_ip" {
   value = aws_instance.test-server.public_ip
 }
