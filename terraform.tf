@@ -27,6 +27,17 @@ resource "aws_instance" "prod-server" {
   }
 }
 
+resource "aws_security_group" "allow_http" {
+  name        = "allow-http"
+  description = "Allow incoming traffic on all ports"
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}
 output "test_server_ip" {
   value = aws_instance.test-server.public_ip
 }
