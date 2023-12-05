@@ -14,5 +14,8 @@
   - name: install docker-compose
     command: sudo apt install -y docker-compose
   
-  - name: deploying bank app and node-exporter
-    command: docker-compose up
+  - name: deploying bank app 
+    command: docker run -itd -p 8080:8080 rohith2703/bankingcapstone:1.0
+
+  - name: deploy node exporter
+    command: docker run -itd -p 9100:9100 prom/node-exporter
